@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kasmo CDP - Home</title>
+  <link rel="stylesheet" href="css/style.css" /> 
+  <link rel="stylesheet" href="footer/footer.css" /> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="js/script.js"></script>
+
+</head>
+<body>
+  <div id="mobile-blocker" class="mobile-warning">
+    <p>This platform is designed for desktop use only.</p>
+  </div>
+
+  <header class="navbar">
+    <div class="logo">Kasmo CDP</div>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <div class="dropdown">
+        <a href="#">Config ▼</a>
+        <div class="dropdown-menu">
+          <a href="#" onclick="openModal('crm')">CRM</a>
+          <a href="#" onclick="openModal('db')">Database</a>
+          <a href="#" onclick="openModal('snowflake')">Snowflake Login</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <a href="#">Data Source ▼</a>
+        <div class="dropdown-menu">
+          <a href="#" onclick="openModal('connectCrm')">Connect to CRM</a>
+          <a href="#" onclick="openModal('connectDb')">Connect to DB</a>
+          <a href="#" onclick="openModal('upload')">Upload</a>
+        </div>
+      </div>
+      <a href="Identity-Resolution/identity_resolution.html" class="user-experience">User Experience</a>
+    </nav>
+    <div class="nav-login">
+      <a href="#" class="login-button" onclick="openModal('snowflake')">Login</a>
+      <a href="request_demo/index2.html" target="_blank" class="demo-button">Request Demo</a>
+    </div>
+  </header>
+
+  <main class="content">
+    <section id="hero" class="hero">
+      <div class="hero-container">
+        <div class="hero-text">
+          <h1>Unlock the Power of Customer Data</h1>
+          <p>Our CDP connects your CRM, databases, and cloud platforms in one intelligent dashboard.</p>
+            <button onclick="document.getElementById('keyFeatures').scrollIntoView({ behavior: 'smooth' })" style="color:black">
+              Explore Features
+            </button>
+
+        </div>
+        <div class="hero-image">
+          <img src="images/image.jpeg" alt="CDP Diagram" />
+        </div>
+      </div>
+    </section>
+
+ 
+
+
+    
+  </main>
+  <!-- CRM Modal -->
+  <div id="crmBackdrop" class="config-backdrop" style="display: none;" onclick="closeModal('crm')"></div>
+  <div id="crmModal" class="config-modal" style="display: none;">
+    <span class="close-icon" onclick="closeModal('crm')">✖</span>
+    <h2>Select CRM</h2>
+    <div class="card-grid crm-group">
+      <div class="card" onclick="selectCard(this, 'crm')">Salesforce</div>
+      <div class="card" onclick="selectCard(this, 'crm')">Zoho</div>
+      <div class="card" onclick="selectCard(this, 'crm')">Hubspot</div>
+    </div>
+  </div>
+
+  <!-- DB Modal -->
+  <div id="dbBackdrop" class="config-backdrop" style="display: none;" onclick="closeModal('db')"></div>
+  <div id="dbModal" class="config-modal" style="display: none;">
+    <span class="close-icon" onclick="closeModal('db')">✖</span>
+    <h2>Select Database</h2>
+    <div class="card-grid db-group">
+      <div class="card" onclick="selectCard(this, 'db')">MySQL</div>
+      <div class="card" onclick="selectCard(this, 'db')">PostgreSQL</div>
+      <div class="card" onclick="selectCard(this, 'db')">SQL Server</div>
+      <div class="card" onclick="selectCard(this, 'db')">Teradata</div>
+      <div class="card" onclick="selectCard(this, 'db')">Redshift</div>
+      <div class="card" onclick="selectCard(this, 'db')">Greenplum</div>
+    </div>
+  </div>
+
+  <!-- Snowflake Modal -->
+  <div id="snowflakeBackdrop" class="config-backdrop" style="display: none;" onclick="closeModal('snowflake')"></div>
+  <div id="snowflakeModal" class="config-modal" style="display: none;">
+    <span class="close-icon" onclick="closeModal('snowflake')">✖</span>
+    <h2 style="margin-bottom: 20px;">❄️ Snowflake Login</h2>
+    <form onsubmit="handleSnowflakeLogin(event)">
+      <div class="form-group">
+        <label for="account">Account</label>
+        <input type="text" id="account" required />
+      </div>
+      <div class="form-group">
+        <label for="user">User</label>
+        <input type="text" id="user" required />
+      </div>
+      <div class="form-group" style="position: relative;">
+        <label for="password">Password</label>
+        <input type="password" id="password" required />
+        <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+      </div>
+      <div class="form-group">
+        <label for="database">Database</label>
+        <input type="text" id="database" required />
+      </div>
+      <div class="form-group">
+        <label for="schema">Schema</label>
+        <input type="text" id="schema" />
+      </div>
+      <div class="form-group">
+        <label for="warehouse">Warehouse</label>
+        <input type="text" id="warehouse" />
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <input type="text" id="role" />
+      </div>
+      <div style="text-align: center; margin-top: 30px;">
+        <button type="submit" class="login-button">Login</button>
+      </div>
+    </form>
+  </div>
+
+
+  <!-- Connect to CRM Modal -->
+  <div id="connectCrmBackdrop" class="config-backdrop" style="display: none;" onclick="closeModal('connectCrm')"></div>
+  <div id="connectCrmModal" class="config-modal" style="display: none;">
+    <span class="close-icon" onclick="closeModal('connectCrm')">&#10006;</span>
+    <h2>Connect to CRM</h2>
+    
+    <div class="card-grid crm-group">
+      <div class="card" onclick="selectCard(this, 'crm')">Salesforce</div>
+      <div class="card" onclick="selectCard(this, 'crm')">Zoho</div>
+      <div class="card" onclick="selectCard(this, 'crm')">Hubspot</div>
+    </div>
+    <form onsubmit="handleCrmConnection(event)">
+      <div class="form-group">
+        <div style="margin-bottom: 10px;">
+        <label for="salesforceInstance">Salesforce Instance :</label>
+        </div>
+        <select id="salesforceInstance" required>
+          <option value="">Select Instance</option>
+          <option value="NA1">NA1</option>
+          <option value="NA2">NA2</option>
+          <option value="EU1">EU1</option>
+          <option value="AP1">AP1</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div style="margin-bottom: 10px;">
+        <label for="objectName">Salesforce Object Name :</label>
+        </div>
+        <input type="text" id="objectName" required placeholder="e.g., Lead, Contact" />
+      </div>
+      <div  style="text-align: center;">
+      <button  type="submit" class="login-button">Connect</button>
+      </div>
+    </form>
+  </div>
+
+<!-- Upload Modal -->
+<div id="uploadBackdrop" class="config-backdrop" onclick="closeModal('upload')"></div>
+<div id="uploadModal" class="config-modal">
+  <span class="close-icon" onclick="closeModal('upload')">✖</span>
+  <h2 style="margin-bottom: 20px;">📁 Upload Files</h2>
+
+  <!-- Drag and Drop Section -->
+  <div class="upload-dropzone" id="dropzone" onclick="document.getElementById('fileInput').click();">
+    Drag and drop files here or click to upload (Max 1 GB)
+    <input type="file" id="fileInput" style="display: none;" onchange="handleFileUpload(event)" />
+    <div id="fileName" style="margin-top: 10px; font-weight: normal;"></div>
+  </div>
+
+  <!-- Load to Snowflake Section -->
+  <div class="upload-section">
+    <h3 style="margin-bottom: 10px;">Load Files to Snowflake</h3>
+    <label for="csvSelect">Select CSV file to load:</label>
+    <select id="csvSelect">
+      <option value="">-- Select a file --</option>
+    </select>
+    <button onclick="loadToSnowflake()">Load</button>
+  </div>
+</div>
+
+<!-- Connect to DB Modal -->
+<div id="connectDbBackdrop" class="config-backdrop" style="display: none;" onclick="closeModal('connectDb')"></div>
+<div id="connectDbModal" class="config-modal" style="display: none;">
+  <span class="close-icon" onclick="closeModal('connectDb')">✖</span>
+  <h2 style="margin-bottom: 20px;"> Connect to Database</h2>
+  
+  <form onsubmit="handleConnectDbSubmit(event)">
+    <div style="margin-bottom: 30px;">
+      <label style="font-weight: bold; color: #0b5ed7 ; ">Select Database Type:</label>
+      <div class="card-grid connect-db-group"style=" margin-top: 20px;">
+        <div class="card" onclick="selectCard(this, 'connect-db')">MySQL</div>
+        <div class="card" onclick="selectCard(this, 'connect-db')">PostgreSQL</div>
+        <div class="card" onclick="selectCard(this, 'connect-db')">SQL Server</div>
+        <div class="card" onclick="selectCard(this, 'connect-db')">Teradata</div>
+        <div class="card" onclick="selectCard(this, 'connect-db')">Redshift</div>
+        <div class="card" onclick="selectCard(this, 'connect-db')">Greenplum</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      
+      <div style="margin-bottom: 20px;">
+        <label for="tableSelect">Select Table to Load:</label>
+      </div> 
+      <select id="tableSelect" required >
+        <option value="">-- Choose a Table --</option>
+        <option value="customers">customers</option>
+        <option value="orders">orders</option>
+        <option value="products">products</option>
+        <option value="transactions">transactions</option>
+      </select>
+      
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <button type="submit" class="login-button">Connect</button>
+    </div>
+  </form>
+</div>
+
+
+<div id="featureBackdrop" class="config-backdrop" style="display: none;" onclick="closeModal('feature')"></div>
+<div id="featureModal" class="config-modal" style="display: none;">
+  <span class="close-icon" onclick="closeModal('feature')">✖</span>
+  <h2 style="margin-bottom: 20px;">Key Features</h2>
+  <h3 id="featureTitle" style="color: #0b5ed7;">Scalable Architecture</h3>
+  <p id="featureDesc">Built for enterprise-level growth and performance.</p>
+  <div style="text-align: right;">
+  <button class="login-button" style="margin-top: 20px;" onclick="handleNextFeature()">Next</button>
+  </div>
+</div>
+
+<!--Key Features-->
+ <h1 style="text-align: center; margin-top:40px;" class="heading" id="keyFeatures">Key Features</h1>
+  <div class="container">
+    <div class="card">
+      <img src="C:\Users\Dhivakar\frontend\ui\assets\dynamic-config.jpg" alt="Image 1">
+      <div class="card-text">
+        <h3>Dynamic Configuration</h3>
+        <p>Load flexible settings from configuration files</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="C:\Users\Dhivakar\frontend\ui\assets\snowflake-integration.webp" alt="Image 2">
+      <div class="card-text">
+        <h3>Snowflake Integration</h3>
+        <p>Push data seamlessly with error handling</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="C:\Users\Dhivakar\frontend\ui\assets\support.jpg" alt="Image 3">
+      <div class="card-text">
+        <h3>Multi Source Support</h3>
+        <p>Extract from cloud, CRM and databases</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="C:\Users\Dhivakar\frontend\ui\assets\UI friendly.jpg" alt="Image 4">
+      <div class="card-text">
+        <h3>User Friendly Support</h3>
+        <p>Navigate easily across pages</p>
+      </div>
+    </div>
+
+     <div class="card">
+      <img src="C:\Users\Dhivakar\frontend\ui\assets\network.png" alt="Image 3">
+      <div class="card-text">
+        <h3>Wider Network Connectivity</h3>
+        <p>Extract and unify data across a wide network of sources </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="C:\Users\Dhivakar\frontend\ui\assets\data-source.jpg" alt="Image 4">
+      <div class="card-text">
+        <h3>Unified Customer Profile</h3>
+        <p>Building real-time, unified profiles from various data sources</p>
+      </div>
+    </div>
+  </div>
+
+ <!-- benefits -->
+  <h1 style="text-align: center; font-size: 35px; color:#007BFF; margin-top: 50px; margin-bottom: 50px;">
+     Benefits of Our CDP
+    </h1>
+   <div class="grid-container">
+    <div class="grid-item">
+      <i class="fas fa-cogs"></i>
+      <h3>Automation</h3>
+      <p>Automate repetitive tasks and streamline your workflows with smart tools.</p>
+    </div>
+    <div class="grid-item">
+      <i class="fas fa-chart-line"></i>
+      <h3>Analytics</h3>
+      <p>Monitor your growth and performance with real-time analytics.</p>
+    </div>
+    <div class="grid-item">
+      <i class="fas fa-users"></i>
+      <h3>Teamwork</h3>
+      <p>Collaborate with your team effectively using shared resources.</p>
+    </div>
+    <div class="grid-item">
+      <i class="fas fa-lock"></i>
+      <h3>Security</h3>
+      <p>Protect your data with our advanced security measures.</p>
+    </div>
+    <div class="grid-item">
+      <i class="fas fa-cloud"></i>
+      <h3>Cloud Access</h3>
+      <p>Access your data from anywhere with secure cloud integration.</p>
+    </div>
+    <div class="grid-item">
+      <i class="fas fa-headset"></i>
+      <h3>Support</h3>
+      <p>24/7 expert support to help you anytime you need assistance.</p>
+    </div>
+  </div>
+
+
+<!--Footer-->
+
+  <footer class="footer" style="margin-top: 50px;">
+    <div class="footer-container">
+
+      <!-- Company Info -->
+      <div class="footer-box">
+        <img src="assets/Kasmo-logo-2.svg" alt="Logo" class="footer-logo" />
+        <p class="footer-desc">
+          Empowering customer intelligence with secure and scalable data sharing solutions.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-box footer1">
+        <h3 class="footer-title">QUICK LINKS</h3>
+        <a href="#">Home</a>
+        <a href="#">Config</a>
+        <a href="#">Data Source</a>
+        <a href="#">User Experience</a>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="footer-box">
+        <h3 class="footer-title">CONTACT</h3>
+        <p><i class="fas fa-home"></i>Hyderabad, India</p>
+        <p><i class="fas fa-envelope"></i> support@kasmocdp.com</p>
+        <p><i class="fas fa-phone"></i> 9876543210 </p>
+        <p><i class="fas fa-globe"></i> <a href="https://www.kasmodigital.com/" target="_blank">www.kasmodigital.com</a></p>
+      </div>
+
+      <!-- Demo & Socials -->
+      <div class="footer-box social-box">
+        <button class="demo-btn footer3" title="Experience our platform in action">
+         <a href="request_demo/index2.html" target="_blank"> <i class="fas fa-play-circle"></i> Request Demo </a>
+        </button>
+        <h3 class="footer-title footer2">Follow Us</h3>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/Kasmotechnologies/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://x.com/kasmodigital" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://in.linkedin.com/company/kasmodigital" target = "_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.youtube.com/@Kasmodigital" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <hr />
+    <p class="footer-copy">© 2025 Kasmo CDP. All rights reserved.</p>
+  </footer>
+
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f6f8fb;
+  margin: 0;
+}
+
+.sidebar {
+  width: 60px;
+  background: #f0e6d2;
+  min-height: 100vh;
+  border-right: 1px solid #ddd;
+  transition: width 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.sidebar.expanded {
+  width: 180px;
+}
+
+.sidebar i {
+  font-size: 1.2rem;
+  color: #555;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.sidebar i.active,
+.sidebar i:hover {
+  color: #1d3557;
+  transform: scale(1.1);
+}
+
+.btn-toggle {
+  background: none;
+  border: none;
+  color: #333;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-left: 5px solid #1d3557;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.filters .btn {
+  margin-bottom: 10px;
+}
+
+.card h3 {
+  font-weight: bold;
+  color: #1d3557;
+}
+
+.total-users{
+  width:200px;
+}
+.stat-card p {
+  margin-bottom: 12px;
+}
+.stat-card h6 {
+  margin-bottom: 4px;
+}
+
+
+#platformChart
+{
+  max-width: 200px;
+  max-height: 200px;
+  margin: 0 auto;
+}
+
+#lineChart {
+  max-width: 400px;
+  max-height: 200px;
+  margin: 0 auto;
+}

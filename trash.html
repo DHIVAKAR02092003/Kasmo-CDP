@@ -1,0 +1,217 @@
+<section class="chart-section">
+      <div class="chart-block">
+        <div class="chart-description">
+          <h3>Purchases Over Time</h3>
+          <p>This line chart shows monthly purchase activity to help identify trends and spikes in customer buying behavior.</p>
+        </div>
+        <div class="chart-container-small">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart-block">
+        <div class="chart-container-small">
+          <canvas id="pieChart"></canvas>
+        </div>
+        <div class="chart-description">
+          <h3>Device Type Distribution</h3>
+          <p>This pie chart visualizes the percentage of users accessing via Mobile, Web, and App platforms.</p>
+        </div>
+      </div>
+
+      <div class="chart-block">
+        <div class="chart-description">
+          <h3>Top Countries by User Count</h3>
+          <p>This chart shows which countries have the most users interacting with the platform, helping you target high-traffic regions.</p>
+        </div>
+        <div class="chart-container-small">
+          <canvas id="countryChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+
+    /* CHART SECTION */
+.chart-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0 2rem 2rem;
+}
+
+.chart-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  gap: 2rem;
+}
+
+.chart-block:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.chart-description {
+  flex: 1;
+}
+
+.chart-description h3 {
+  font-size: 1.2rem;
+  color: #0b5ed7;
+  margin-bottom: 0.5rem;
+}
+
+.chart-description p {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.chart-container-small {
+  flex: 1;
+  max-width: 400px;
+  max-height: 260px;
+}
+
+
+
+
+// Mobile Blocker
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.innerWidth < 1024) {
+    document.getElementById('mobile-blocker').style.display = 'flex';
+    return;
+  }
+
+  // Populate metric cards
+  document.getElementById('total-users').textContent = '10,240';
+  document.getElementById('avg-order-value').textContent = '₹345.60';
+  document.getElementById('repeat-rate').textContent = '62.4%';
+
+  // Render charts
+  renderLineChart();
+  renderPieChart();
+  renderBarChart();
+  renderCountryChart();
+
+});
+
+// Line Chart: Purchases Over Time
+function renderLineChart() {
+  new Chart(document.getElementById('lineChart'), {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [{
+        label: 'Purchases',
+        data: [120, 200, 180, 220, 300, 280],
+        borderColor: '#0b5ed7',
+        backgroundColor: 'rgba(11, 94, 215, 0.1)',
+        tension: 0.4,
+        fill: true,
+        pointRadius: 5,
+        pointHoverRadius: 7
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 50 }
+        }
+      }
+    }
+  });
+}
+
+// Pie Chart: Device Type Distribution
+function renderPieChart() {
+  new Chart(document.getElementById('pieChart'), {
+    type: 'pie',
+    data: {
+      labels: ['Mobile', 'Web', 'App'],
+      datasets: [{
+        data: [45, 35, 20],
+        backgroundColor: ['#0b5ed7', '#ffc107', '#28a745'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { color: '#444', font: { size: 14 } }
+        }
+      }
+    }
+  });
+}
+
+// Bar Chart: Referral Sources
+function renderBarChart() {
+  new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Email', 'Google Ads', 'Affiliate', 'Organic'],
+      datasets: [{
+        label: 'Referrals',
+        data: [140, 90, 60, 110],
+        backgroundColor: ['#0b5ed7', '#6610f2', '#20c997', '#fd7e14'],
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        x: {
+          grid: { display: false }
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 20,
+            font: { size: 12 }
+          }
+        }
+      }
+    }
+  });
+}
+
+// Country Chart: Most Users by Country
+function renderCountryChart() {
+  new Chart(document.getElementById('countryChart'), {
+    type: 'bar',
+    data: {
+      labels: ['USA', 'India', 'Germany', 'UK', 'Canada', 'Australia'],
+      datasets: [{
+        label: 'Users',
+        data: [220, 190, 160, 140, 120, 100],
+        backgroundColor: '#0b5ed7',
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}

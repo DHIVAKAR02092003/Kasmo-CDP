@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kasmo CDP - User Experience</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/user.css" />
+  <script defer src="js/user.js"></script>
+  <script defer src="js/auth-check.js"></script>
+  <script defer src="js/script.js"></script>
+</head>
+
+<body>
+   <header class="navbar">
+    <div class="logo">Kasmo CDP</div>
+    <nav class="nav-links">
+      <a href="index.html" >Home</a>
+      <div class="dropdown">
+        <a href="#">Config ▼</a>
+        <div class="dropdown-menu">
+          <a href="#" onclick="openModal('crm')">CRM</a>
+          <a href="#" onclick="openModal('db')">Database</a>
+          <a href="#" onclick="openModal('snowflake')">Snowflake Login</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <a href="#">Datasource ▼</a>
+        <div class="dropdown-menu">
+          <a href="connect-crm.html">Connect to CRM</a>
+          <a href="connect-db.html">Connect to DB</a>
+          <a href="upload-data.html">Upload</a>
+        </div>
+      </div>
+      <a href="user.html" class="active">User Experience</a>
+    </nav>
+    <div class="nav-login">
+      <a href="login.html" class="login-button">Login</a>
+      <a href="mailto:lokesh.dodigalla@kasmodigital.com?subject=Request%20a%20Demo" class="demo-button">Request a Demo</a>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="header">
+      <h1>User Experience Insights</h1>
+      <p>Visualize how your customers interact across platforms and sessions.</p>
+    </section>
+
+    <section class="ux-charts">
+      <div class="chart-block">
+        <canvas id="sessionChart"></canvas>
+      </div>
+      <div class="chart-block">
+        <canvas id="platformChart"></canvas>
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>
